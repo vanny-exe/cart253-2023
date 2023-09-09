@@ -1,9 +1,8 @@
 /**
- * Title of Project
- * Author Name
+ * class 2, draing your code
+ * vanessa racine
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * results of going through curriculum for week 2 of course
  */
 
 "use strict";
@@ -21,13 +20,13 @@ function preload() {
 */
 function setup() {
    createCanvas(500, 500);
-   
+// green background
     background(173, 223, 179);
 
+
+// my silly cone
     noStroke();
     
-
-
     ellipseMode(CORNER);
     fill(133, 235, 207);
     ellipse(250, 250, 100, 100);
