@@ -34,10 +34,22 @@ function setup() {
     ellipse(250, 250, 80, 80);
     fill(253, 235, 217);
     ellipse(250, 250, 60, 60);
-    noStroke();
     fill(263, 265, 167);
     ellipse(250, 250, 40, 40);
-   
+
+// a little face
+    ellipseMode(CENTER);
+    fill(250, 200, 200);
+    ellipse(150, 150, 200, 200);
+// little eyes
+    fill(0, 0, 0);
+    ellipse(100, 150, 20, 20);
+    ellipse(200, 150, 20, 20);
+
+// little mouth 
+    stroke(0, 0, 0);
+    strokeWeight(10);
+    line(110, 200, 190, 200);
 }
 
 
