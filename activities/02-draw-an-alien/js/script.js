@@ -1,9 +1,8 @@
 /**
- * Title of Project
- * Author Name
+ * Activity 2: Draw and Alien
+ * Vanessa Racine
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * Drawing an alien on the canvas.
  */
 
 "use strict";
