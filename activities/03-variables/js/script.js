@@ -8,9 +8,11 @@
 "use strict";
 // variables // 
 let bgShade = 0;
-let circleX = 250;
-let circleY= 300 
+let circleX = 0;
+let circleY= 250 
 let circleSize = 100;
+let circleSpeed = 2; 
+let circleAcceleration = 0.05;
 
 
 /**
@@ -35,6 +37,8 @@ createCanvas(500,500);
 */
 function draw() {
 background(bgShade);
+circleX += circleSpeed;
+circleSpeed += circleAcceleration;
 ellipse(circleX, circleY, circleSize);
 
 }
