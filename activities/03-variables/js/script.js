@@ -27,7 +27,7 @@ createCanvas(windowWidth,windowHeight);
  * Description of draw()
 */
 function draw() {
-background(255, 0, 0);
+background(mouseX, 0, 0);
 rectMode(CENTER);
 rect(mouseX, mouseY, 100, 100);
 }
