@@ -15,6 +15,8 @@ let bg = {
     
 }
 
+// STARS
+
 let star1 = {
     x: 20,
     y: 400,
@@ -58,7 +60,7 @@ let star5 = {
     fill: 255,
     
 }
-
+// SUN
 let sun = {
     x: 60,
     y: 110,
@@ -66,7 +68,8 @@ let sun = {
     height: 100,
     stroke: 4,
     speed: 1
-    
+
+// BIRD
 }
 let headExterior = {
     x: 320,
