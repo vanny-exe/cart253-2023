@@ -206,8 +206,9 @@ pop()
 //stars that grow to 5 and then changes to white / black as cursor moves up and down
 //star 1
     star1.fill = map(mouseY, 0, height, 0, 255); // i dont know why this isnt working it looks like the videos with adjustments 
+// EDIT SEPT 20: the issue was strokeWeight(sun.stroke) was overriding the stroke in this section - by adding push/pop i was able to fix it. 
     console.log(star1.fill);
-    fill(star1.fill, star1.fill, star1.fill); // i dont understand how the circle are still black when fill is rgb white in both the object and here and when i try to change it to 255,255,255 it still doesnt work i removed the background it still doesnt work
+    fill(star1.fill, star1.fill, star1.fill); // i dont understand how the circle are still black when fill is rgb white (EDIT SEPT 20: fixed, see above)
 
     star1.size = star1.size + 0.005; 
     star1.size = constrain(star1.size, 0, 5); // constrain does work though
