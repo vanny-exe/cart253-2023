@@ -204,10 +204,10 @@ push()
 pop()
     //STARS//
 //stars that grow to 5 and then changes to white / black as cursor moves up and down
-//star 1
+//star 1 
     star1.fill = map(mouseY, 0, height, 0, 255); // i dont know why this isnt working it looks like the videos with adjustments 
 // EDIT SEPT 20: the issue was strokeWeight(sun.stroke) was overriding the stroke in this section - by adding push/pop i was able to fix it. 
-    console.log(star1.fill);
+    console.log(star1.fill); // trying to troubleshoot. works in preview but not in github? 
     fill(star1.fill, star1.fill, star1.fill); // i dont understand how the circle are still black when fill is rgb white (EDIT SEPT 20: fixed, see above)
 
     star1.size = star1.size + 0.005; 
@@ -256,7 +256,7 @@ pop()
 
     //RAVEN //
 
-//bird head exterior
+//bird head exterior 
 push()
 headExterior.rotate = headExterior.rotate - 0.4;
 headExterior.rotate = constrain(headExterior.rotate, 40, 45) // was unsure how to write those two numbers but honestly it doesn't even show that well...
