@@ -201,11 +201,11 @@ pop()
     //STARS//
 //stars that grow to 5 and then changes to white / black as cursor moves up and down
 //star 1
-    star1.fill = map(mouseY, 400, height, 0, 255); // i dont know why this isnt working it 
-    fill(255); // i dont understand how the circle are still black when fill is rgb white
+    star1.fill = map(mouseY, 400, height, 0, 255); // i dont know why this isnt working it looks like the videos with adjustments 
+    fill(star1.fill); // i dont understand how the circle are still black when fill is rgb white in both the object and here and when i try to change it to 255,255,255 it still doesnt work i removed the background it still doesnt work
     ellipse(star1.x, star1.y, star1.size);
     star1.size = star1.size + 0.005; 
-    star1.size = constrain(star1.size, 0, 5); // constrain does work de
+    star1.size = constrain(star1.size, 0, 5); // constrain does work though
 
     star1.y = star1.y - star1.speed;
     star1.y = constrain(star1.y, 129, 400);    
