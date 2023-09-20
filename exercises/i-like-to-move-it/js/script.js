@@ -193,6 +193,7 @@ push()
     bg.b = bg.b -.3;
 pop()
 
+push()
     //SUN//
 //sun that moves left to right
     fill(230, 176, 115),
@@ -200,20 +201,22 @@ pop()
     ellipse(sun.x, sun.y, sun.width, sun.height);
     sun.x = sun.x + sun.speed;
     sun.x = constrain(sun.x, 0, 390);
-
+pop()
     //STARS//
 //stars that grow to 5 and then changes to white / black as cursor moves up and down
 //star 1
-    star1.fill = map(mouseY, 400, height, 0, 255); // i dont know why this isnt working it looks like the videos with adjustments 
-    fill(star1.fill); // i dont understand how the circle are still black when fill is rgb white in both the object and here and when i try to change it to 255,255,255 it still doesnt work i removed the background it still doesnt work
-    ellipse(star1.x, star1.y, star1.size);
+    star1.fill = map(mouseY, 0, height, 0, 255); // i dont know why this isnt working it looks like the videos with adjustments 
+    console.log(star1.fill);
+    fill(star1.fill, star1.fill, star1.fill); // i dont understand how the circle are still black when fill is rgb white in both the object and here and when i try to change it to 255,255,255 it still doesnt work i removed the background it still doesnt work
+
     star1.size = star1.size + 0.005; 
     star1.size = constrain(star1.size, 0, 5); // constrain does work though
 
     star1.y = star1.y - star1.speed;
     star1.y = constrain(star1.y, 129, 400);    
+    ellipse(star1.x, star1.y, star1.size);
 // star 2
-    star2.fill = map(mouseY, 400, height, 0, 255);    
+    star2.fill = map(mouseY, 0, height, 0, 255);    
     fill(star2.fill);
     ellipse(star2.x, star2.y, star2.size);
     star2.size = star2.size + 0.005;
@@ -222,7 +225,7 @@ pop()
     star2.y = star2.y - star2.speed;
     star2.y = constrain(star2.y, 200, 400);
 //star 3
-    star3.fill = map(mouseY, 400, height, 0, 255);
+    star3.fill = map(mouseY, 0, height, 0, 255);
     fill(star3.fill);
     ellipse(star3.x, star3.y, star3.size);
     star3.size = star3.size + 0.005;
@@ -231,7 +234,7 @@ pop()
     star3.y = star3.y - star3.speed;
     star3.y = constrain(star3.y, 18, 400);
 //star 4
-    star4.fill = map(mouseY, 400, height, 0, 255);
+    star4.fill = map(mouseY, 0, height, 0, 255);
     fill(star4.fill);
     ellipse(star4.x, star4.y, star4.size);
     star4.size = star4.size + 0.005;
@@ -240,7 +243,7 @@ pop()
     star4.y = star4.y - star4.speed;
     star4.y = constrain(star4.y, 130, 400);
 //star 5
-    star5.fill = map(mouseY, 400, height, 0, 255);
+    star5.fill = map(mouseY, 0, height, 0, 255);
     fill(star5.fill);
     ellipse(star5.x, star5.y, star5.size);
     star5.size = star5.size + 0.005;
