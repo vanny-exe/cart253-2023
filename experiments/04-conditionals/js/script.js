@@ -40,28 +40,15 @@ function draw() {
 
     circle.x = circle.x + circle.speed; 
 
-    if (circle.x === width) {
-        circle.speed = - circle.speed;
-    }
 
-    if (circle.x < 0) {
-        circle.speed = - circle.speed;
-    }
-
-    if (circle.x > width/2) {
-        circle.size = circle.size + 1;
-    }
-    
-    if (circle.x < width/2) {
-        circle.size = circle.size - 1;
-    }
-
-    if (mouseY < height/2) {
+    if (mouseX < width/3) {
         fill(255,0,0);
     }
-
-    if (mouseY > height/2) {
-        fill(0, 255, 0);
+    else if (mouseX < 2 * width/3 ) {
+        fill(0,255,0);
+    }
+    else {
+        fill(0,0,255);
     }
 
     ellipse(circle.x, circle.y, circle.size);
