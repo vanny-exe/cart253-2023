@@ -8,12 +8,7 @@
 "use strict";
 let bgShade = 0;
 
-let circle = {
-    x: 0,
-    y: 250,
-    size: 100,
-    speed: 2
-}
+let displayCircle = false;
 
 
 /**
@@ -37,15 +32,11 @@ function setup() {
 */
 function draw() {
     background(bgShade);
-
-    circle.x = circle.x + circle.speed; 
-    fill(255,255,255);
-    if (!(circle.x < width/3)) {
-        fill(255,0,0);
-    }
-    
-
-    ellipse(circle.x, circle.y, circle.size);
-
-
+   if (keyIsPressed) {
+    displayCircle = true;
+   }
+    if (displayCircle)
+ {
+    ellipse(250,250,100,100);
+ }
 }
