@@ -39,17 +39,11 @@ function draw() {
     background(bgShade);
 
     circle.x = circle.x + circle.speed; 
-
-
-    if (mouseX < width/3) {
+    fill(255,255,255);
+    if (!(circle.x < width/3)) {
         fill(255,0,0);
     }
-    else if (mouseX < 2 * width/3 ) {
-        fill(0,255,0);
-    }
-    else {
-        fill(0,0,255);
-    }
+    
 
     ellipse(circle.x, circle.y, circle.size);
 
