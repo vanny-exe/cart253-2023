@@ -1,9 +1,21 @@
 /**
- * Title of Project
+ * Exercise 3: dodge em
  * Vanessa Racine
  * 
  * A simulation of avoiding the impending void 
  */
+
+/** THE PLAN: 
+ * 1) change the way user controls circle: 
+ *      -   change to keys (done!)
+ * 2) add a new if-statement: 
+ *      -   if you touch the void, circle grows to fill screen 
+ *      -   if circle fills screen, then game ends (implies theres a way to stop it... but thats a problem for another day)
+ * 3) change the looks: 
+ *     -    add more things to avoid, the void being the game-ender
+ *     -    add objects that your sprite can't run into (trees? maybe? if you have time)
+ * 4) use an image: swap out circle for pixel sprite, swap out covid for new variable (gitchi manitou aka manitou)*/ 
+
 
 "use strict";
 
