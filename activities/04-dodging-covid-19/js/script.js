@@ -53,6 +53,8 @@ function setup() {
     
     covid.y = random(0,height);
     covid.vx = covid.speed;
+
+    noCursor(); 
 }
 
 
