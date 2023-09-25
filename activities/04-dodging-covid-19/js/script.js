@@ -8,6 +8,19 @@
 
 "use strict";
 
+let circle = {
+    x: 100,
+    y: 100
+
+}
+
+let covid = {
+    x: 120,
+    y: 120,
+    
+}
+
+
 /**
  * Description of preload
 */
