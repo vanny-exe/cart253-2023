@@ -2,7 +2,7 @@
  * Exercise 3: dodge em
  * Vanessa Racine
  * 
- * A simulation of avoiding the impending void 
+ * A simulation of avoiding the impending void, 
  */
 
 /** THE PLAN: 
@@ -19,7 +19,11 @@
 
 "use strict";
 
-let user = {
+let userImage;
+let voidImage;
+let friendImage;
+
+let user= {
     x: 350,
     y: 350,
     size: 100,
@@ -52,7 +56,9 @@ let numStatic = 1000;
  * Description of preload
 */
 function preload() {
-   
+   userImage = loadImage("assets/images/user.png");
+   voidImage = loadImage("assets/images/void.png");
+   friendImage = loadImage("assets/images/friend.png");
 }
 
 
@@ -60,7 +66,7 @@ function preload() {
  * Description of setup
 */
 function setup() {
-    createCanvas(windowWidth,windowHeight);
+    createCanvas(800,600);
     
     covid.y = random(0,height);
     covid.vx = covid.speed;
@@ -73,7 +79,7 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-    background(125,145,118);
+    background(91,83,112);
 
 // display static
 
@@ -128,7 +134,11 @@ if (d < covid.size/2 + user.size/2) {
  //USER display
     fill(user.fill.r,user.fill.g,user.fill.b);
     ellipse(user.x,user.y,user.size);
-    
+
+//IMAGES
+    image(userImage,0,0,80,80);
+    image(voidImage,100,100,80,80);
+    image(friendImage,200,200,80,80);
 }
 
 // User Movement
