@@ -2,13 +2,14 @@
  * Title of Project
  * Vanessa Racine
  * 
- * A simulation of avoiding the impending void 
+ * A simulation of avoiding the impending void, 
  */
 
 "use strict";
 
 let userImage;
 let voidImage;
+let friendImage;
 
 let user= {
     x: 350,
@@ -43,8 +44,9 @@ let numStatic = 1000;
  * Description of preload
 */
 function preload() {
-   userImage = loadImage("assets/images/user.png")
-   voidImage = loadImage("assets/images/void.png")
+   userImage = loadImage("assets/images/user.png");
+   voidImage = loadImage("assets/images/void.png");
+   friendImage = loadImage("assets/images/friend.png");
 }
 
 
@@ -65,7 +67,7 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-    background(35,29,51);
+    background(91,83,112);
 
 // display static
 
@@ -124,6 +126,7 @@ if (d < covid.size/2 + user.size/2) {
 //IMAGES
     image(userImage,0,0,80,80);
     image(voidImage,100,100,80,80);
+    image(friendImage,200,200,80,80);
 }
 
 // User Movement
