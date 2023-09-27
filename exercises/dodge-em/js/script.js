@@ -98,6 +98,7 @@ function preload() {
 */
 function setup() {
     createCanvas(600,600);
+    noCursor();
     
     friend.x = random(0,width);
     friend.vy = friend.speed;
