@@ -8,14 +8,14 @@
 
 "use strict";
 
-let hamlet1 = "to be or not to be";
-let hamlet2 = 'that is the question'; // works too!
-let hamlet3 = `whether 'tis nobler in the mind...`; // also does the same thing
-
-
-
-
-
+let hello = {
+    string: `hello, world!`,
+    x: 0,
+    y:250,
+    vx: 5,
+    vy: 1,
+    size: 65
+}
 
 /**
  * Description of preload
@@ -39,6 +39,20 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-background(0);
+    background(127);
+
+   hello.x = hello.x +hello.vx;
+   hello.y = hello.y + hello.vy;
+
+    textAlign(CENTER,CENTER);
+    textSize(hello.size);
+    textStyle(BOLD);
+
+    stroke(0);
+    strokeWeight(5);
+    fill(255,0,0);
+
+    text(hello.string, hello.x, hello.y);
+
 
 }
