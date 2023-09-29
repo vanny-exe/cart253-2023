@@ -8,6 +8,12 @@
 
 "use strict";
 
+let hamlet1 = "to be or not to be";
+let hamlet2 = 'that is the question'; // works too!
+let hamlet3 = `whether 'tis nobler in the mind...`; // also does the same thing
+
+
+
 
 
 
@@ -25,11 +31,7 @@ function preload() {
 function setup() {
     createCanvas(500,500);
 
-    let hotCelsius = toCelsius(100);
-    console.log(`100 degrees fahrenheit is ${hotCelsius} degrees Celsius.`);
-
-    let coldCelsius = toCelsius(10);
-    console.log(`10 degrees Fahrenheit is ${coldCelsius} degrees Celsius.`);
+  
 }
 
 
@@ -39,9 +41,4 @@ function setup() {
 function draw() {
 background(0);
 
-}
-
-function toCelsius(fahrenheight){
-    let celsius = (fahrenheight-32) * 5/9;
-    return celsius; 
 }
