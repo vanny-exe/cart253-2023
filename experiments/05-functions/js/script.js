@@ -8,15 +8,16 @@
 
 "use strict";
 
-let hello = {
-    string: `hello, world!`,
+let circle = {
     x: 0,
-    y:250,
-    vx: 5,
-    vy: 1,
-    size: 65
-}
+    y: 250,
+    size: 100,
+    vx: 0,
+    vy: 0,
+    speed: 2,
+};
 
+let state = `title`;  // possible states are title, animation, ending
 /**
  * Description of preload
 */
@@ -30,7 +31,9 @@ function preload() {
 */// why is this not working? 
 function setup() {
     createCanvas(500,500);
-
+    circle.vx = circle.speed;
+    textSize(32);
+    textAlign(CENTER,CENTER);
   
 }
 
@@ -41,18 +44,39 @@ function setup() {
 function draw() {
     background(127);
 
-   hello.x = hello.x +hello.vx;
-   hello.y = hello.y + hello.vy;
+if (state === `title`) {
+    title();
+}
+else if (state === `animation`) {
+    animation();
+}
+ else if (state === `ending`) {
+    ending();
+ }
+}
 
-    textAlign(CENTER,CENTER);
-    textSize(hello.size);
-    textStyle(BOLD);
+function title(){
+    fill(255);
+    text(`moving`, width/2, height/2);
+}
+function animation(){
+    circle.x = circle.x + circle.vx;
+    circle.y = circle.y + circle.vy;
 
-    stroke(0);
-    strokeWeight(5);
-    fill(255,0,0);
+    if (circle.x > width) {
+        state = `ending`;
+    }
 
-    text(hello.string, hello.x, hello.y);
+    ellipse(circle.x,circle.y,circle.size);
+}
 
-
+function ending() {
+    fill(0);
+    text(`moved`, width/2, height/2);
+}
+function keyPressed(){
+    if (state === `title`) {
+        state = `animation`;
+    }
+    
 }
