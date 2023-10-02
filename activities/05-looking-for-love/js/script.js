@@ -25,6 +25,8 @@ let circle2 = {
     speed: 3
 };
 
+let state = `title`; // can be title, simulation, love or sadness 
+
 /**
  * Description of preload
 */
@@ -55,12 +57,26 @@ function setup() {
 function draw() {
     background(52,66,50);
 
-    simulation();
+    
 
-
-
-
-
+    if (state === `title`) {
+        title();
+    }
+    else if (state === `simulation`) {
+        simulation();
+    }
+    else if (state === `love`) {
+        love();
+    }
+    else if (state === `sadness`) {
+        sadness();
+    }
+}
+function title() {
+    textSize(50);
+    fill(202, 227, 200);
+    textAlign(CENTER,CENTER);
+    text(`zaagi'diwin`, width/2, height/2);
 }
 
 function simulation() {
@@ -68,6 +84,21 @@ function simulation() {
     checkOffScreen();
     checkOverlap();
     display();
+}
+
+function love() {
+    textSize(20);
+    fill(202, 227, 200);
+    textAlign(CENTER,CENTER);
+    text(`a treasuring we cause to eachother reciprocally`, width/2, height/2);
+}
+
+function sadness() {
+    textSize(20);
+    fill(202, 227, 200);
+    textAlign(CENTER,CENTER);
+    text(`if you don't give love, love won't give back`, width/2, height/2);
+
 }
 
 function move() {
@@ -83,7 +114,7 @@ function checkOffScreen(){
     //circles going offscreen (check)
 
     if(circle1.x< 0 || circle1.x>width || circle1.y < 0 || circle1.y > height || circle2.x<0 || circle2.x>width || circle2.y < 0 || circle2.y > height) {
-        //sad ending
+        state = `sadness`;
     }
 }
 
@@ -93,13 +124,20 @@ function checkOverlap() {
 
     let d = dist(circle1.x,circle1.y,circle2.x,circle2.y)
     if (d < circle1.size/2 + circle2.size/2) {
-        //love ending
+        state = `love`;
     }
 }
 
 function display() {
 
     //display circles
+    fill(219, 206, 145);
     ellipse(circle1.x,circle1.y,circle1.size);
     ellipse(circle2.x,circle2.y,circle2.size);
+}
+
+function mousePressed() {
+    if (state === `title`) {
+        state = `simulation`;
+    }
 }
