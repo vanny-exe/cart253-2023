@@ -54,13 +54,20 @@ function setup() {
 */
 function draw() {
     background(52,66,50);
+
+    simulation();
+
+
+
+
+
+}
+
+function simulation() {
     move();
     checkOffScreen();
     checkOverlap();
     display();
-
-
-
 }
 
 function move() {
