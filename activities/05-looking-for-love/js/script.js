@@ -54,19 +54,33 @@ function setup() {
 */
 function draw() {
     background(52,66,50);
+    move();
+    checkOffScreen();
+    checkOverlap();
+    display();
 
+
+
+}
+
+function move() {
     //circles moving
     circle1.x = circle1.x + circle1.vx;
     circle1.y = circle1.y + circle1.vy;
 
     circle2.x = circle2.x + circle2.vx;
     circle2.y = circle2.y + circle2.vy;
+}
 
+function checkOffScreen(){
     //circles going offscreen (check)
 
     if(circle1.x< 0 || circle1.x>width || circle1.y < 0 || circle1.y > height || circle2.x<0 || circle2.x>width || circle2.y < 0 || circle2.y > height) {
         //sad ending
     }
+}
+
+function checkOverlap() {
 
     // check for overlap
 
@@ -74,9 +88,11 @@ function draw() {
     if (d < circle1.size/2 + circle2.size/2) {
         //love ending
     }
-    
+}
+
+function display() {
+
     //display circles
     ellipse(circle1.x,circle1.y,circle1.size);
     ellipse(circle2.x,circle2.y,circle2.size);
-
 }
