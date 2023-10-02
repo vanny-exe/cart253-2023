@@ -7,17 +7,16 @@
  */
 
 "use strict";
+let bg = 125;
 
 let circle = {
-    x: 0,
-    y: 250,
+    x: 250,
+    y:250,
     size: 100,
     vx: 0,
-    vy: 0,
-    speed: 2,
-};
-
-let state = `title`;  // possible states are title, animation, ending
+    vy:0,
+    speed:2,
+}
 /**
  * Description of preload
 */
@@ -31,9 +30,7 @@ function preload() {
 */// why is this not working? 
 function setup() {
     createCanvas(500,500);
-    circle.vx = circle.speed;
-    textSize(32);
-    textAlign(CENTER,CENTER);
+  
   
 }
 
@@ -42,41 +39,30 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-    background(127);
+    background(bg);
 
-if (state === `title`) {
-    title();
-}
-else if (state === `animation`) {
-    animation();
-}
- else if (state === `ending`) {
-    ending();
- }
-}
+    let dx = circle.x - mouseX; 
+    let dy = circle.y - mouseY;
 
-function title(){
-    fill(255);
-    text(`moving`, width/2, height/2);
-}
-function animation(){
+    if (dx < 0) {
+        circle.vx = circle.speed;
+    }
+    else if (dx > 0) {
+        circle.vx = -circle.speed
+    }
+
+    if (dy < 0) {
+        circle.vy = circle.speed;
+    }
+    else if (dy > 0) {
+        circle.vy = -circle.speed;
+    }
+       
+    
+
     circle.x = circle.x + circle.vx;
     circle.y = circle.y + circle.vy;
-
-    if (circle.x > width) {
-        state = `ending`;
-    }
 
     ellipse(circle.x,circle.y,circle.size);
 }
 
-function ending() {
-    fill(0);
-    text(`moved`, width/2, height/2);
-}
-function keyPressed(){
-    if (state === `title`) {
-        state = `animation`;
-    }
-    
-}
