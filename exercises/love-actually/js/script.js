@@ -31,7 +31,7 @@ let plant = {
     size: 40,
     vx: 0,
     vy: 0,
-    speed: 1.5,
+    speed: 1.3,
 };
 
 let seat = {
@@ -46,7 +46,7 @@ let tree = {
     x: 90,
     y: 420,
     size: 160,
-    totalSegments: 3,
+    totalSegments: 3, 
     segmentSize: 160,
     segmentSpacing: 150,
 };
