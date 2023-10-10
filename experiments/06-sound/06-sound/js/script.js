@@ -7,11 +7,16 @@
 
 "use strict";
 let music; 
+let circle= {
+    x: 0,
+    y: 0,
+    size:100,
+}
 /**
  * Description of preload
 */
 function preload() {
-music = loadSound(`assets/sounds/bark.wav`);
+
 }
 
 
@@ -27,19 +32,11 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-background(0);
+    background(0);
+
+    circle.x = mouseX;
+    circle.y = mouseY;
+ 
+    ellipse(circle.x,circle.y,100);
 }
 
-function mousePressed() {
-    tryMusic();
-}
-
-function keyPressed() {
-    music.loop();
-}
-
-function tryMusic() {
-    if (!music.isPlaying()) {
-        music.loop();
-    }
-}
