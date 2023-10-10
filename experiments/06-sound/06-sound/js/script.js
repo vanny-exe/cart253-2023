@@ -6,12 +6,12 @@
  */
 
 "use strict";
-let barkSFX; 
+let music; 
 /**
  * Description of preload
 */
 function preload() {
-
+music = loadSound(`assets/sounds/bark.wav`);
 }
 
 
@@ -19,7 +19,7 @@ function preload() {
  * Description of setup
 */
 function setup() {
-
+    createCanvas(500,500);
 }
 
 
@@ -27,5 +27,19 @@ function setup() {
  * Description of draw()
 */
 function draw() {
+background(0);
+}
 
+function mousePressed() {
+    tryMusic();
+}
+
+function keyPressed() {
+    music.loop();
+}
+
+function tryMusic() {
+    if (!music.isPlaying()) {
+        music.loop();
+    }
 }
