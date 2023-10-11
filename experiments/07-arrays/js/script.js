@@ -64,7 +64,7 @@ function createFood(x,y) {
 };
 
 function createFish(x,y) {
-    let fish = {
+    let  = {
         x: x,
         y: y,
         size: 50,

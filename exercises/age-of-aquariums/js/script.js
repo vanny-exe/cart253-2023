@@ -7,10 +7,23 @@
  */
 
 "use strict";
-let school = []; // Create an empty array and assign it to the school variable
+
+// NON-USER array and size
+let school = []; 
 let schoolSize = 5;
+
+
+// USER 
+
+let user = {
+    x: 300,
+    y:250,
+    size: 100,
+    speed: 5,
+};
+
 /**
- * Description of preload
+ * PRELOAD: images of sprites, assets and other items
 */
 function preload() {
 
@@ -23,12 +36,12 @@ function preload() {
 function setup() {
    createCanvas(500,500);
     for (let i = 0; i < schoolSize; i++) {
-        school[i] = createFish(random(0,width),random(0,height));
+        school[i] = createFirefly(random(0,width),random(0,height));
       }
 }
 
-function createFish(x, y) {
-    let fish = {
+function createFirefly(x, y) {
+    let Firefly = {
       x: x,
       y: y,
       size: 50,
@@ -36,45 +49,45 @@ function createFish(x, y) {
       vy: 0,
       speed: 2
     };
-    return fish;
+    return Firefly;
   }
   
   // draw()
-  // Moves and displays our fish
+  // Moves and displays our Firefly
   function draw() {
     background(0);
   
     for (let i = 0; i < 4; i++) {
-        moveFish(school[i]);
-        displayFish(school[i]);
+        moveFirefly(school[i]);
+        displayFirefly(school[i]);
       }
   }
   
-  // moveFish(fish)
-  // Chooses whether the provided fish changes direction and moves it
-  function moveFish(fish) {
+  // moveFirefly(Firefly)
+  // Chooses whether the provided Firefly changes direction and moves it
+  function moveFirefly(Firefly) {
     // Choose whether to change direction
     let change = random(0, 1);
-    if (change < 0.05) {
-      fish.vx = random(-fish.speed, fish.speed);
-      fish.vy = random(-fish.speed, fish.speed);
+    if (change < 0.1) {
+      Firefly.vx = random(-Firefly.speed, Firefly.speed);
+      Firefly.vy = random(-Firefly.speed, Firefly.speed);
     }
   
-    // Move the fish
-    fish.x = fish.x + fish.vx;
-    fish.y = fish.y + fish.vy;
+    // Move the Firefly
+    Firefly.x = Firefly.x + Firefly.vx;
+    Firefly.y = Firefly.y + Firefly.vy;
   
-    // Constrain the fish to the canvas
-    fish.x = constrain(fish.x, 0, width);
-    fish.y = constrain(fish.y, 0, height);
+    // Constrain the Firefly to the canvas
+    Firefly.x = constrain(Firefly.x, 0, width);
+    Firefly.y = constrain(Firefly.y, 0, height);
   }
   
-  // displayFish(fish)
-  // Displays the provided fish on the canvas
-  function displayFish(fish) {
+  // displayFirefly(Firefly)
+  // Displays the provided Firefly on the canvas
+  function displayFirefly(Firefly) {
     push();
     fill(200, 100, 100);
     noStroke();
-    ellipse(fish.x, fish.y, fish.size);
+    ellipse(Firefly.x, Firefly.y, Firefly.size);
     pop();
   }
