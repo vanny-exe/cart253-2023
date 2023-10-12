@@ -12,20 +12,37 @@
  */
 
 "use strict";
+let state = `title`;
+let bg;
 
+let user = {
+    x: 300,
+    y: 200,
+    size: 50,
+    vx: 0,
+    vy: 0,
+};
 
-// state
-let state = `start`; // options: start, simulation, ending1, ending2
+let box = {
+    x: 200,
+    y:200,
+    size: 60
+};
 
-// firefly array
-let fireflies = [];
-let firefliesSize = 7;
+let dark = {
+    x: 500,
+    y: 400,
+    size: 100,
+};
+
+let titleString = `to treasure (verb, transitive)`
+let endingString = `zaagi'- (vta)`
 
 /**
- * PRELOAD: load user sprite, fireflies, sam sprite
+ * PRELOAD: load images required
 */
 function preload() {
-  
+ 
 }
 
 
@@ -33,119 +50,65 @@ function preload() {
  * SETUP: Arrays for displaying fireflies, canvas properties
 */
 function setup() {
-    createCanvas(600,500);
+    createCanvas(600,400);
+    bg = loadImage('assets/images/bliss.jpg');
 
-    // array - displaying the fireflies 
-    for (let i = 0; i < firefliesSize; i++) {
-        fireflies[i] = createFirefly(random(0,width), random(0,height));
-   
-    };
-}
+   // text settings
+   textSize(20);
+   textAlign(CENTER, CENTER);
+
+};
 
 
 /**
  * DRAW: 
 */
 function draw() {
-    background(10, 15, 9);
-    stateChange();
-    
+    background(0);
+
+
+// state 1: title
+    if (state === `title`) {
+        fill(255);
+        text(titleString, width/2,height/2);
+    }
+// state 2: homepage
+    else if (state === `homepage`) {
+        push();
+        background(bg);
+        fill(255,100,100);
+        ellipse(user.x, user.y, user.size);
+
+        user.x = mouseX;
+        user.y = mouseY;
+        pop();
+    }
+
+// state 3: zaagi 
+    else if (state === `zaagi`) {
+        fill(255);  
+        rect(box.x,box.y,box.size,box.size);
+    }
+
+// state 4: broken 
+    else if (state === `broken`) {
+        push();
+        background(bg);
+        fill(255,100,100);
+        ellipse(user.x, user.y, user.size);
+
+        fill(0);
+        ellipse(dark.x,dark.y,dark.size);
+
+        user.x = mouseX;
+        user.y = mouseY;
+        pop();
+    }
+
+
+
+fill(255);
+text(endingString, width/2,height/2);    
 }
 
 // STATE CHANGES
-
-function stateChange() {
-    if (state === `start`) {
-        start();
-    }
-    else if (state === `simulation`) {
-        simulation();
-        
-    }
-    else if (state === `ending1`) {
-        ending1();
-    }
-    else if (state === `ending2`) {
-        ending2();
-    }
-};
-
-// STATES
-    // START STATE + starting game function (pressing space to begin)
-function start() {
-    push();
-      textSize(20);
-      fill(202, 227, 200);
-      textAlign(CENTER,CENTER);
-      textFont('Pixelify Sans');
-      text(`oh, to tresure beautiful nights to yourself`, width/2, height/2);
-      textSize(15);
-      text(`( press ENTER to begin )`, width/2, 290);
-    pop();
-  }
-
-  /// START GAME
-
-
-
-function keyPressed() {
-    if (keyCode === ENTER) { 
-        if (state === `start`) {
-            state = `simulation`;
-        };
-    };
-    
-};
-    // simulation state
-  function simulation() {
-    showFirefly();
-    createFirefly();
-    displayFirefly();
-    for (let i = 0; i < fireflies.length; i++) {
-        moveFirefly(fireflies[i]);
-        displayFirefly(fireflies[i]);
-    };
-
-  };
-// firefly functions - create, move and display
-
-function createFirefly(x,y) {
-    let firefly  = {
-        x: x,
-        y: y,
-        size: 30,
-        vx: 0,
-        vy: 0,
-        speed:2,
-    };
-    return firefly;
-};
-
-function moveFirefly (firefly) {
-    let change = random(0,1);
-    if (change <0.05) {
-        firefly.vx = random(-firefly.speed,firefly.speed);
-        firefly.vy = random(-firefly.speed,firefly.speed);
-    };
-
-    firefly.x = firefly.x+firefly.vx;
-    firefly.y = firefly.y+firefly.vy;
-
-    firefly.x = constrain(firefly.x,0,width);
-    firefly.y = constrain(firefly.y,0,height);
-
-};
-
-function displayFirefly(firefly) {
-    push();
-    fill(200,100,150);
-    ellipse(firefly.x,firefly.y,firefly.size);
-    pop();
-};
-
-function showFirefly() {
-    for (let i = 0; i < fireflies.length; i++) {
-        moveFirefly(fireflies[i]);
-        displayFirefly(fireflies[i]);
-    };
-}
