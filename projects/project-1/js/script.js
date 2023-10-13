@@ -59,6 +59,7 @@ function setup() {
    textSize(20);
    textAlign(CENTER, CENTER);
 
+    cursor('assets/images/cursor.png');
 };
 
 
