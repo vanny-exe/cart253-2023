@@ -11,6 +11,7 @@ Also hides overflow.
 
 body {
   padding: 0;
+  background-color: #000;
   margin: 0;
   display: grid; /* Set up the grid and justify/align to center */
   justify-content: center;
