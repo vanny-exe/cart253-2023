@@ -136,15 +136,15 @@ function draw() {
         background(28, 30, 33);
         
         // fireflies
-        movefirefly(firefly1);
-        movefirefly(firefly2);
-        movefirefly(firefly3);
-        movefirefly(firefly4);
+        moveFirefly(firefly1);
+        moveFirefly(firefly2);
+        moveFirefly(firefly3);
+        moveFirefly(firefly4);
       
-        displayfirefly(firefly1);
-        displayfirefly(firefly2);
-        displayfirefly(firefly3);
-        displayfirefly(firefly4); 
+        displayFirefly(firefly1);
+        displayFirefly(firefly2);
+        displayFirefly(firefly3);
+        displayFirefly(firefly4); 
 
 
         // placeholder for something 
@@ -207,7 +207,7 @@ function createFirefly(x, y) {
     return firefly;
   }
 
-  function movefirefly(firefly) {
+  function moveFirefly(firefly) {
     // Choose whether to change direction
     let change = random(0, 1);
     if (change < 0.05) {
@@ -226,7 +226,7 @@ function createFirefly(x, y) {
   
   // displayfirefly(firefly)
   // Displays the provided firefly on the canvas
-  function displayfirefly(firefly) {
+  function displayFirefly(firefly) {
     push();
     fill(200, 100, 100);
     noStroke();
