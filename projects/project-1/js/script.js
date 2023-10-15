@@ -19,12 +19,6 @@ let bg;
 // value for double clicking folder (still not entirely sure how this works.. but if its not here my code breaks)
 let value = 255;
 
-// the fireflies 
-let firefly1;
-let firefly2;
-let firefly3;
-let firefly4;
-let firefly;
 
 
 // text interaction with zaagi room
@@ -62,6 +56,13 @@ let box = {
 let titleString = `to treasure (verb, transitive)`
 let endingString = `zaagi'- (vta)`
 
+// spirit - the spirit circles that we treasure (found in zaagi state)
+
+let spirit1;
+let spirit2;
+let spirit3;
+let spirit4;
+
 
 /**
  * PRELOAD: load images required
@@ -72,20 +73,19 @@ function preload() {
 
 
 /**
- * SETUP: Arrays for displaying fireflies, canvas properties
+ * SETUP: Arrays for displaying spirits, canvas properties
 */
 function setup() {
     createCanvas(600,400);
     bg = loadImage('assets/images/bliss.png');
     folder.img = loadImage('assets/images/folder.png');
-    firefly = loadImage('assets/images/firefly.png');
+   
+    // create four spirit circles (spirit)
+    spirit1 = createSpirit(random(0, width), random(0, height));
+    spirit2 = createSpirit(random(0, width), random(0, height));
+    spirit3 = createSpirit(random(0, width), random(0, height));
+    spirit4 = createSpirit(random(0, width), random(0, height));
 
-
-    // fireflies
-    firefly1 = createFirefly(random(0, width), random(0, height));
-    firefly2 = createFirefly(random(0, width), random(0, height));
-    firefly3 = createFirefly(random(0, width), random(0, height));
-    firefly4 = createFirefly(random(0, width), random(0, height));
    // text settings
    textSize(20);
    textAlign(CENTER, CENTER);
@@ -135,16 +135,18 @@ function draw() {
         push();
         background(28, 30, 33);
         
-        // fireflies
-        moveFirefly(firefly1);
-        moveFirefly(firefly2);
-        moveFirefly(firefly3);
-        moveFirefly(firefly4);
-      
-        displayFirefly(firefly1);
-        displayFirefly(firefly2);
-        displayFirefly(firefly3);
-        displayFirefly(firefly4); 
+        // spirits
+
+        moveSpirit(spirit1);
+        moveSpirit(spirit2);
+        moveSpirit(spirit3);
+        moveSpirit(spirit4);
+
+        displaySpirit(spirit1);
+        displaySpirit(spirit2);
+        displaySpirit(spirit3);
+        displaySpirit(spirit4);
+
 
 
         // placeholder for something 
@@ -177,14 +179,57 @@ function draw() {
         text(endingString, width/2,height/2);   
     }
 
+};
+
+// DISPLAYING SPIRIT
+
+    // create spirit as object 
+function createSpirit(x,y) {
+    let spirit = {
+        x: x,
+        y: y,
+        size: 30,
+        vx: 0,
+        vy: 0,
+        speed: 2
+    }
+    return spirit; 
+};
+
+    // move spirit
+function moveSpirit(spirit) {
+    let change = random(0,1);
+    if (change < 0.08) {
+        spirit.vx = random(-spirit.speed,spirit.speed);
+        spirit.vy = random(-spirit.speed,spirit.speed);
+    }
+    // moving the spirit
+    spirit.x = spirit.x + spirit.vx;
+    spirit.y = spirit.y + spirit.vy;
+
+    // constrain spirit to canvas
+        spirit.x = constrain(spirit.x, 0, width);
+        spirit.y = constrain(spirit.y,0,height);
+};
+
+function displaySpirit(spirit) {
+    push();
+    fill(255,0,0);
+    noStroke();
+    ellipse(spirit.x,spirit.y,spirit.size);
+    pop();
 }
 
+// STATE CHANGES
+
+    // start page switching to homepage
 function keyPressed() {
     if (keyCode === ENTER) {
         state = `homepage`;
     };
 }
 
+    // homepage to zaagi via double clicking folder (very proud of this)
 function doubleClicked() {
     if (value === 255) {
         state = `zaagi`;
@@ -192,44 +237,5 @@ function doubleClicked() {
 }
 
 
-// STATE CHANGES
 
-// fireflies
-function createFirefly(x, y) {
-    let firefly = {
-      x: x,
-      y: y,
-      size: 30,
-      vx: 0,
-      vy: 0,
-      speed: 2
-    };
-    return firefly;
-  }
 
-  function moveFirefly(firefly) {
-    // Choose whether to change direction
-    let change = random(0, 1);
-    if (change < 0.05) {
-      firefly.vx = random(-firefly.speed, firefly.speed);
-      firefly.vy = random(-firefly.speed, firefly.speed);
-    }
-  
-    // Move the firefly
-    firefly.x = firefly.x + firefly.vx;
-    firefly.y = firefly.y + firefly.vy;
-  
-    // Constrain the firefly to the canvas
-    firefly.x = constrain(firefly.x, 0, width);
-    firefly.y = constrain(firefly.y, 0, height);
-  }
-  
-  // displayfirefly(firefly)
-  // Displays the provided firefly on the canvas
-  function displayFirefly(firefly) {
-    push();
-    fill(200, 100, 100);
-    noStroke();
-    image(firefly.img, firefly.x, firefly.y, firefly.size);
-    pop();
-  }
