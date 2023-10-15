@@ -6,7 +6,6 @@
  * 
  * PROJECT OUTLINE:
  * 2 moving elements
- * interactivity
  * beginning, middle and end
  * 
  */
@@ -14,17 +13,16 @@
 "use strict";
 // variable for state changing
 let state = `title`;
-// background variable
+// background variable for the vintage look 
 let bg;
+// background for zaagi (made an image i refuse to draw it out in js)
+let bgz;
 // value for double clicking folder (still not entirely sure how this works.. but if its not here my code breaks)
 let value = 255;
 
 
 
-// text interaction with zaagi room
-
-
-
+// storing objects up here
 
 let user = {
     x: 300,
@@ -47,28 +45,29 @@ let dark = {
 };
 
 let box = {
-    x: 300,
-    y:200,
-    sizeX: 200,
-    sizeY: 120
+    x: 560,
+    y: 11,
+    sizeX: 15,
+    sizeY: 15
 };
 
 let titleString = `to treasure (verb, transitive)`
 let endingString = `zaagi'- (vta)`
 
-// spirit - the spirit circles that we treasure (found in zaagi state)
+// Manidoo array - the spirit circles that we treasure (found in zaagi state) (manidoo is anishinaabemowin for spirit)
+let manidoo = [];
+let manidooSize = 7
+;
 
-let spirit1;
-let spirit2;
-let spirit3;
-let spirit4;
 
 
 /**
  * PRELOAD: load images required
 */
 function preload() {
- 
+    bg = loadImage('assets/images/bliss.png');
+    bgz = loadImage('assets/images/zaagi.png');
+    folder.img = loadImage('assets/images/folder.png');
 }
 
 
@@ -77,22 +76,21 @@ function preload() {
 */
 function setup() {
     createCanvas(600,400);
-    bg = loadImage('assets/images/bliss.png');
-    folder.img = loadImage('assets/images/folder.png');
+
    
-    // create four spirit circles (spirit)
-    spirit1 = createSpirit(random(0, width), random(0, height));
-    spirit2 = createSpirit(random(0, width), random(0, height));
-    spirit3 = createSpirit(random(0, width), random(0, height));
-    spirit4 = createSpirit(random(0, width), random(0, height));
+    // create four spirit circles (spirit) with a loop
+    for (let i = 0; i < manidooSize; i++) {
+        manidoo[i] = createSpirit(random(0, width), random(0, height));
+    }
+// button?
+
 
    // text settings
    textSize(20);
    textAlign(CENTER, CENTER);
 
+    // cursor customization 
     cursor('assets/images/cursor.png');
-
-    
 };
 
 
@@ -101,6 +99,7 @@ function setup() {
 */
 function draw() {
     background(0);
+  
 
 
 // state 1: title
@@ -114,44 +113,39 @@ function draw() {
         push();
         // background screen 
         background(bg);
+        // display folder image
         fill(value);
         image(folder.img,folder.x,folder.y,folder.size, folder.size);
-        
-
-        // placehodler for moveable object
-        fill(255,100,100);
-        ellipse(user.x, user.y, user.size);
-
-        // moveable object via mouse
-        user.x = mouseX;
-        user.y = mouseY;
-        
-
         pop();
     }
 
 // state 3: zaagi 
     else if (state === `zaagi`) {
         push();
-        background(28, 30, 33);
+        background(bgz);
         
-        // spirits
+        // spirits displaying and moving inside of this state
+        for (let i =0; i < manidoo.length; i++) {
+            moveSpirit(manidoo[i]);
+            displaySpirit(manidoo[i]);
+        }
+        // at what point is treasuring equated to greed? is it possible to have too many treasures.
+        if (manidoo.length === 1) {
+            state = `broken`;
+        }
 
-        moveSpirit(spirit1);
-        moveSpirit(spirit2);
-        moveSpirit(spirit3);
-        moveSpirit(spirit4);
+        // the 'exit' button to return to homepage - really tried to hide the button but i dont know enough about DOM
+        if (state === `zaagi`) {
+            let button = createButton('X');
+            button.position(860, 260);
+            button.size(15,15);
+            button.mousePressed(exit);
+        }
+        
+        // change cursor to 'medicine pouch' or net 
 
-        displaySpirit(spirit1);
-        displaySpirit(spirit2);
-        displaySpirit(spirit3);
-        displaySpirit(spirit4);
 
-
-
-        // placeholder for something 
-        fill(0);  
-        rect(box.x,box.y,box.sizeX,box.sizeY);
+        // 'catch' spirits (reduce number from array)
 
 
         pop();
@@ -208,8 +202,8 @@ function moveSpirit(spirit) {
     spirit.y = spirit.y + spirit.vy;
 
     // constrain spirit to canvas
-        spirit.x = constrain(spirit.x, 0, width);
-        spirit.y = constrain(spirit.y,0,height);
+        spirit.x = constrain(spirit.x, 30, 570);
+        spirit.y = constrain(spirit.y, 70,350);
 };
 
 function displaySpirit(spirit) {
@@ -218,7 +212,7 @@ function displaySpirit(spirit) {
     noStroke();
     ellipse(spirit.x,spirit.y,spirit.size);
     pop();
-}
+};
 
 // STATE CHANGES
 
@@ -236,6 +230,15 @@ function doubleClicked() {
     }
 }
 
+function exit() {
+    state = `homepage`;
+}
+
+function hideButton() {
+    if (state = `title` &&`homepage` && `broken` && `end`) {
+        button.hide();
+    }
+}
 
 
 
