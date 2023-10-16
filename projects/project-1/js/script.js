@@ -89,8 +89,7 @@ function setup() {
    textSize(20);
    textAlign(CENTER, CENTER);
 
-    // cursor customization 
-    cursor('assets/images/cursor.png');
+
 };
 
 
@@ -102,7 +101,7 @@ function draw() {
   
 
 
-// state 1: title
+// state 1: title - introducing the user into this simulation and pressing enter to begin
     if (state === `title`) {
         fill(255);
         text(titleString, width/2,height/2);
@@ -119,18 +118,18 @@ function draw() {
         pop();
     }
 
-// state 3: zaagi 
+// state 3: zaagi - opening the folder zaagi leads to an interaction of collecting spirits
     else if (state === `zaagi`) {
         push();
         background(bgz);
-        
+
         // spirits displaying and moving inside of this state
         for (let i =0; i < manidoo.length; i++) {
             moveSpirit(manidoo[i]);
             displaySpirit(manidoo[i]);
         }
         // at what point is treasuring equated to greed? is it possible to have too many treasures.
-        if (manidoo.length === 1) {
+        if (manidoo.length === 0) {
             state = `broken`;
         }
 
@@ -142,35 +141,26 @@ function draw() {
             button.mousePressed(exit);
         }
         
-        // change cursor to 'medicine pouch' or net 
+        // change cursor to net / void - note: button is taking the cursor out of the homepage when clicked.... interesting... 
+        fill(0);
+        ellipse(user.x, user.y, user.size);
 
-
-        // 'catch' spirits (reduce number from array)
-
-
+        user.x = mouseX;
+        user.y = mouseY;
         pop();
     }
 
-// state 4: broken 
+// state 4: broken - you are the outsider to this mini cyberspace, and therefore taking too much treasure / value (that was never yours to take
+// and yet, it is people do in foreign spaces and foreign land. 
     else if (state === `broken`) {
-        background(bg);
-        text(endingString, width/2,height/2);    
-        fill(255,100,100);
-        ellipse(user.x, user.y, user.size);
+        background(bg); 
 
-        fill(value);
+
+        fill(0);
         image(folder.img,folder.x,folder.y,folder.size, folder.size);
 
         fill(0);
         ellipse(dark.x,dark.y,dark.size);
-
-        user.x = mouseX;
-        user.y = mouseY;
-    }
-
-    else if (state === `end`) {
-        background(0);
-        text(endingString, width/2,height/2);   
     }
 
 };
@@ -205,7 +195,7 @@ function moveSpirit(spirit) {
         spirit.x = constrain(spirit.x, 30, 570);
         spirit.y = constrain(spirit.y, 70,350);
 };
-
+    // display spirit
 function displaySpirit(spirit) {
     push();
     fill(255,0,0);
@@ -213,6 +203,17 @@ function displaySpirit(spirit) {
     ellipse(spirit.x,spirit.y,spirit.size);
     pop();
 };
+    // remove spirit with mouse pressed 
+function mousePressed() {
+    for (let i = 0; i < manidoo.length; i++) {
+      let spirit = manidoo[i];
+      let d = dist(mouseX, mouseY, spirit.x, spirit.y);
+      if (d < spirit.size / 2) {
+        manidoo.splice(i, 1);
+        break;
+      }
+    }
+  }
 
 // STATE CHANGES
 
@@ -234,11 +235,16 @@ function exit() {
     state = `homepage`;
 }
 
+// EXTRA FUNCTIONS
+    // hiding button - which still doesnt work but i realize its the DOM aspect... 
+    // in anycase, i've attempted to hide it by 'breaking' the page as part of the aesthetic
 function hideButton() {
-    if (state = `title` &&`homepage` && `broken` && `end`) {
+    if (state = `title` &&`homepage` && `broken`) {
         button.hide();
     }
 }
+
+
 
 
 
