@@ -19,6 +19,11 @@ let bg;
 let bgz;
 // value for double clicking folder (still not entirely sure how this works.. but if its not here my code breaks)
 let value = 255;
+// adding 'noise/glitch' to the broken state
+let numStatic = 500;
+// exit 'button' that isnt really a button but the actually button function is terrible for right now
+let leave = 180;
+
 
 
 
@@ -68,6 +73,7 @@ function preload() {
     bg = loadImage('assets/images/bliss.png');
     bgz = loadImage('assets/images/zaagi.png');
     folder.img = loadImage('assets/images/folder.png');
+
 }
 
 
@@ -135,18 +141,28 @@ function draw() {
 
         // the 'exit' button to return to homepage - really tried to hide the button but i dont know enough about DOM
         if (state === `zaagi`) {
-            let button = createButton('X');
-            button.position(860, 260);
-            button.size(15,15);
-            button.mousePressed(exit);
+            fill(leave);
+            rect(box.x,box.y,box.sizeX, box.sizeY);
         }
+
+        for (let i = 0; i < manidoo.length; i++) {
+            let spirit = manidoo[i];
+            let d = dist(mouseX, mouseY, spirit.x, spirit.y);
+            if (d < spirit.size / 2) {
+              manidoo.splice(i, 1);
+              break;
+            }
+          }
         
         // change cursor to net / void - note: button is taking the cursor out of the homepage when clicked.... interesting... 
+        
         fill(0);
         ellipse(user.x, user.y, user.size);
 
         user.x = mouseX;
         user.y = mouseY;
+
+
         pop();
     }
 
@@ -154,7 +170,7 @@ function draw() {
 // and yet, it is people do in foreign spaces and foreign land. 
     else if (state === `broken`) {
         background(bg); 
-
+        brokenStatic();
 
         fill(0);
         image(folder.img,folder.x,folder.y,folder.size, folder.size);
@@ -205,15 +221,16 @@ function displaySpirit(spirit) {
 };
     // remove spirit with mouse pressed 
 function mousePressed() {
-    for (let i = 0; i < manidoo.length; i++) {
-      let spirit = manidoo[i];
-      let d = dist(mouseX, mouseY, spirit.x, spirit.y);
-      if (d < spirit.size / 2) {
-        manidoo.splice(i, 1);
-        break;
-      }
-    }
+
+    if (leave === 180) {
+        state = `homepage`;
+    };
+
+
+
   }
+
+
 
 // STATE CHANGES
 
@@ -235,15 +252,33 @@ function exit() {
     state = `homepage`;
 }
 
-// EXTRA FUNCTIONS
-    // hiding button - which still doesnt work but i realize its the DOM aspect... 
-    // in anycase, i've attempted to hide it by 'breaking' the page as part of the aesthetic
-function hideButton() {
-    if (state = `title` &&`homepage` && `broken`) {
-        button.hide();
-    }
-}
+// zaagi to homepage via clicking grey square 
 
+
+// EXTRA FUNCTIONS FOR AESTHETICS
+
+    // static in broken state (overides on top of everything
+    function brokenStatic() {
+       
+        for(let i = 0; i < numStatic; i++) {
+            let x = random(0,width);
+            let y = random(0,height);
+            stroke(0)
+            strokeWeight(1.5);
+            point(x,y);
+        }
+        for(let i = 0; i < numStatic; i++) {
+            let x = random(0,width);
+            let y = random(0,height);
+            stroke(255)
+            strokeWeight(1.5);
+            point(x,y);
+        
+
+
+        }
+
+    }
 
 
 
