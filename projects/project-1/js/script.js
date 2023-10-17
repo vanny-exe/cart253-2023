@@ -20,12 +20,12 @@ let bgz;
 let value = 255;
     // adding 'noise/glitch' to the broken state
 let numStatic = 500;
-    // exit 'button' that isnt really a button but the actually button function is terrible for right now since i dont know DOM too well
-let leave = 180;
+    // hover to exit
+let isHovering;
 
 
 // OBJECTS
-// user: the black circle in `zaagi` state
+    // user: the black circle in `zaagi` state
 let user = {
     x: 300,
     y: 200,
@@ -33,43 +33,44 @@ let user = {
     vx: 0,
     vy: 0,
 };
-// folder found on homepage
+    // folder found on homepage
 let folder = {
     x: 15,
     y: 15,
     size: 60
 };
-
+    // fake folder for fake homepage (broken state)
 let folder2 = {
     x:15,
     y:15,
     size:60
 }
-// dark circle that appears on broken
+    // dark circle that appears on broken
 let dark = {
     x: 500,
     y: 300,
     size: 100,
 };
-// 'exit' button to return to homepage state
+    // 'exit' button to return to homepage state
 let box = {
     x: 560,
     y: 11,
     sizeX: 15,
     sizeY: 15
 };
-// image for the fake login 
+    // image for the fake login 
 let start = {
     x: 300,
     y: 200,
     size: 160
 };
+
 // TEXT
     // title screen
 let titleString = `( press ENTER to log in )`
     // zaagi states
         // on spirits and collecting
-let spiritString = `here`
+let spiritString = `look at all these treasures\nyou can treasure them yourself if you'd like.`
         // warning about collecting to much 
 let warningString = `are you sure?`
 let finalwarningString = `you don't need to have everything if you don't want to.`
@@ -101,7 +102,7 @@ function setup() {
  * DRAW: create four states with varying functions (title as 'login', homepage with double click, zaagi folder, broken page)
 */
 function draw() {
-    background(42, 106, 209);
+    background(42, 106, 209);   
     
 
 // state 1: title - introducing the user into this simulation and pressing enter to begin
@@ -129,6 +130,9 @@ function draw() {
         zaagi(); // for loop of collecting spirits
         checkLength(); // check length for # of spirits remaining - triggers text
         displayExit(); // the 'exit' button to return to homepage 
+
+        checkHover();
+        mousePressed();
         pop();
     }
 
@@ -151,7 +155,7 @@ function draw() {
     // exit 'button' (found in zaagi state)
     function displayExit() {
         push();
-        fill(leave);
+        fill(180);
         rect(box.x,box.y,box.sizeX, box.sizeY);
         pop();
     };
@@ -260,13 +264,27 @@ function draw() {
   function doubleClicked() {
     if (value === 255) {
         state = `zaagi`;
-    }
-    }
+     }
+    };
+
+
+    
     // change state from zaagi to homepage
     function mousePressed() {
-        if (leave === 180) {
+        if(isHovering) {
             state = `homepage`;
-        };
+        }
+    };
+    // hovering over boolean values
+    function checkHover() {
+        let d = dist(mouseX, mouseY, box.x, box.y);
+    
+        if (d < box.sizeX / 2 && d < box.sizeY / 2) {
+            isHovering = true;
+        }
+        else {
+            isHovering = false;
+        }
     };
 
     // start page switching to homepage
@@ -327,7 +345,8 @@ function draw() {
 
     // image display: folder 2
     function displayFolder2() {
-        image(folder2.img,folder2.x,folder2.y,folde2r.size, folder2.size);
+        fill(0);
+        image(folder2.img,folder2.x,folder2.y,folder2.size, folder2.size);
     };
 
 
@@ -340,8 +359,6 @@ function draw() {
         textFont('Pixelify Sans')
         text(titleString, width/2,300);
     }
-
-    // text display: homepage
 
 
     // text display: zaagi
