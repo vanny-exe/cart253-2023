@@ -16,12 +16,8 @@ let state = `title`;
 let bg;
     // background for zaagi (made an image i refuse to draw it out in js)
 let bgz;
-    // value for double clicking folder (still not entirely sure how this works.. but if its not here my code breaks)
-let value = 255;
     // adding 'noise/glitch' to the broken state
-let numStatic = 500;
-    // hover to exit
-let isHovering;
+let numStatic = 600;
 
 
 // OBJECTS
@@ -47,7 +43,7 @@ let folder2 = {
 }
     // dark circle that appears on broken
 let dark = {
-    x: 500,
+    x: 600,
     y: 300,
     size: 100,
 };
@@ -65,17 +61,28 @@ let start = {
     size: 160
 };
 
+    // image for memo pad (homepage)
+let memo = {
+    x: 80,
+    y:156,
+    sizeX: 300,
+    sizeY: 210,
+};
+
+
 // TEXT
-    // title screen
+    // title state
 let titleString = `( press ENTER to log in )`
+    // homepage 
+let boozhooString = `you're new here, aren't you?\nit's nice to meet you.\nstay for a while!\n\nyou can open the folder\nby pressing TAB.\nand come back with ESCAPE.\n(don't forget to click the screen\nto stay with us)`
     // zaagi states
         // on spirits and collecting
-let spiritString = `look at all these treasures\nyou can treasure them yourself if you'd like.`
+let spiritString = `look at all these treasures\nyou can treasure some for yourself if you'd like.`
         // warning about collecting to much 
 let warningString = `are you sure?`
-let finalwarningString = `you don't need to have everything if you don't want to.`
+let finalwarningString = `you don't have to take everything. things can be as is.`
     // broken ending
-let endingString = `look at what you've done!\ntake. take. take.\nis that all you know how to do in foreign space?`
+let endingString = `look at what you've done!\nyou took too much.\nafter all everything i gave you`
 
 // ARRAYS
     // Manidoo array - the spirit circles that we treasure (found in zaagi state) (manidoo is anishinaabemowin for spirit)
@@ -103,52 +110,61 @@ function setup() {
 */
 function draw() {
     background(42, 106, 209);   
-    
-
-// state 1: title - introducing the user into this simulation and pressing enter to begin
-    if (state === `title`) {
-        push();
-        keyPressed(); // lets you press enter on title state
-        displayLogin(); // displays image
-        textTitle(); // title text display
-        pop();
-    }
-// state 2: homepage
-    else if (state === `homepage`) {
-        push();
-        background(bg); // background screen
-        displayFolder(); // display folder image
-        pop();
-    }
-
-// state 3: zaagi - opening the folder zaagi leads to an interaction of collecting spirits
-    else if (state === `zaagi`) {
-        push();
-        background(bgz);
-        displayUser() // black circle to collect spirits
-        displayManidoo()  // spirits displaying and moving inside of this state
-        zaagi(); // for loop of collecting spirits
-        checkLength(); // check length for # of spirits remaining - triggers text
-        displayExit(); // the 'exit' button to return to homepage 
-
-        checkHover();
-        mousePressed();
-        pop();
-    }
-
-// state 4: broken - taking too much treasure / habits people do in foreign spaces and foreign land 
-    else if (state === `broken`) {
-        background(bg); 
-        displayFolder2(); // folder 2 is a replica of #1 but used to prevent double clicking
-        displayGlitch(); // a little 'glitch' looking drawing using lines and ellipses
-        textBroken(); // displays text
-        brokenStatic(); // drawing of broken screen lookalike 
-    }
-
+    displayStates();
 };
 
 
+// DISPLAY STATES
 
+    function displayStates() {
+// state 1: title - introducing the user into this simulation and pressing enter to begin
+        if (state === `title`) {
+            push();
+            keyPressed(); // lets you press enter on title state
+            displayLogin(); // displays image
+            textTitle(); // title text display
+            pop();
+        }
+        // state 2: homepage
+        else if (state === `homepage`) {
+            push();
+            background(bg); // background screen
+            displayMemo(); // display screen background
+            textHomepage(); // display text
+            keyPressed(); // change state to zaagi
+            displayFolder(); // display folder image
+            pop();
+        }
+
+        // state 3: zaagi - opening the folder zaagi leads to an interaction of collecting spirits
+        else if (state === `zaagi`) {
+            push();
+            background(bgz);
+            noCursor();
+            textSpirit(); // displays text conversation
+            displayUser() // black circle to collect spirits
+            displayManidoo()  // spirits displaying and moving inside of this state
+            zaagi(); // for loop of collecting spirits
+            checkLength(); // check length for # of spirits remaining - triggers text
+            displayExit(); // the 'exit' button to return to homepage 
+            keyPressed(); // change state to homepage
+            pop();
+        }
+
+        // state 4: broken - taking too much treasure / habits people do in foreign spaces and foreign land 
+        else if (state === `broken`) {
+            background(bg); 
+            displayFolder2(); // folder 2 is a replica of #1 but used to prevent double clicking
+            displayGlitch(); // a little 'glitch' looking drawing using lines and ellipses
+            displayMemo(); // memo box, purposefully misaligned with text
+            textBroken(); // displays text
+            glitchLine2(); // aesthetics
+            glitchLine3(); // aesthetics
+            glitchLine(); // aesthetics
+            brokenStatic(); // drawing of broken screen lookalike 
+        }
+
+    };
 
 
 //SHAPES
@@ -173,6 +189,30 @@ function draw() {
         ellipse(user.x, user.y, user.size);
         user.x = mouseX;
         user.y = mouseY;
+    }
+
+    function glitchLine() {
+        push();
+        fill(255);
+        strokeWeight(2);
+        line(580,0,580,height);
+        pop();
+    }
+
+    function glitchLine2() {
+        push();
+        fill(255);
+        strokeWeight(8);
+        line(592,0,592,height);
+        pop();
+    }
+
+    function glitchLine3() {
+        push();
+        fill(255);
+        strokeWeight(4);
+        line(575,0,575,height);
+        pop();
     }
 
 
@@ -260,39 +300,26 @@ function draw() {
 
 //STATE CHANGES
 
-  // homepage to zaagi via double clicking folder (very proud of this)
-  function doubleClicked() {
-    if (value === 255) {
-        state = `zaagi`;
-     }
-    };
-
-
-    
-    // change state from zaagi to homepage
-    function mousePressed() {
-        if(isHovering) {
-            state = `homepage`;
-        }
-    };
-    // hovering over boolean values
-    function checkHover() {
-        let d = dist(mouseX, mouseY, box.x, box.y);
-    
-        if (d < box.sizeX / 2 && d < box.sizeY / 2) {
-            isHovering = true;
-        }
-        else {
-            isHovering = false;
-        }
-    };
-
-    // start page switching to homepage
+  // key pressed to change between each states of program except 'broken' - as it is triggered by checkLength()
     function keyPressed() {
-        if (keyCode === ENTER) {
-            state = `homepage`;
-        };
-    };
+        if (state === `title`) {
+            if (keyCode === ENTER) {
+                state = `homepage`;
+            }
+        }
+        else if (state === `homepage`) {
+            if (keyCode === TAB) {
+                state = `zaagi`
+            }
+        }
+        else if (state === `zaagi`) {
+            if (keyCode === ESCAPE) {
+                state = `homepage`;
+            }
+        }
+        else; 
+  };
+  
 
 
 // AESTHETICS/ADD ONS
@@ -326,6 +353,7 @@ function draw() {
         folder.img = loadImage('assets/images/folder.png');
         folder2.img = loadImage('assets/images/folder2.png');
         start.img = loadImage('assets/images/start.png');
+        memo.img = loadImage('assets/images/memo.png')
     };
 
     // image display: title
@@ -337,7 +365,7 @@ function draw() {
     // image display: homepage folder
     function displayFolder() {
         push();
-        fill(value);
+        fill(0);
         image(folder.img,folder.x,folder.y,folder.size, folder.size);
         pop();
 
@@ -349,19 +377,44 @@ function draw() {
         image(folder2.img,folder2.x,folder2.y,folder2.size, folder2.size);
     };
 
+    // image display: memo
+    function displayMemo() {
+        fill(0);
+        image(memo.img, memo.x,memo.y,memo.sizeX,memo.sizeY);
+    };
+
 
 // TEXT DISPLAYS 
     //text display: title
     function textTitle() {
+        push();
         fill(255);
         textSize(15);
         textAlign(CENTER, CENTER);
         textFont('Pixelify Sans')
         text(titleString, width/2,300);
+        pop();
     }
 
-
+    // text display: homepage
+    function textHomepage() {
+        push();
+        fill(0);
+        textSize(14);
+        textAlign(LEFT);
+        textFont ('Pixelify Sans')
+        text(boozhooString, 100, height/2);
+        pop();
+    }
     // text display: zaagi
+    function textSpirit() {
+        push();
+        textSize(15);
+        textAlign(LEFT);
+        textFont('Pixelify Sans')
+        text(spiritString, 15,150);
+        pop();    
+    }
     function textWarning() {
         push();
         textSize(15);
@@ -387,6 +440,6 @@ function draw() {
         textSize(15);
         textAlign(LEFT);
         textFont('Pixelify Sans');
-        text(endingString, 15,160);
+        text(endingString, 210,210);
         pop();
     };
