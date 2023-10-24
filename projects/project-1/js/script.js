@@ -110,48 +110,7 @@ function setup() {
 */
 function draw() {
     background(42, 106, 209);   
-    
-
-// state 1: title - introducing the user into this simulation and pressing enter to begin
-    if (state === `title`) {
-        push();
-        keyPressed(); // lets you press enter on title state
-        displayLogin(); // displays image
-        textTitle(); // title text display
-        pop();
-    }
-// state 2: homepage
-    else if (state === `homepage`) {
-        push();
-        background(bg); // background screen
-        displayFolder(); // display folder image
-        pop();
-    }
-
-// state 3: zaagi - opening the folder zaagi leads to an interaction of collecting spirits
-    else if (state === `zaagi`) {
-        push();
-        background(bgz);
-        displayUser() // black circle to collect spirits
-        displayManidoo()  // spirits displaying and moving inside of this state
-        zaagi(); // for loop of collecting spirits
-        checkLength(); // check length for # of spirits remaining - triggers text
-        exitWindow(); // the 'exit' button to return to homepage 
-
-        checkHover();
-        clickExit();
-        pop();
-    }
-
-// state 4: broken - taking too much treasure / habits people do in foreign spaces and foreign land 
-    else if (state === `broken`) {
-        background(bg); 
-        displayFolder2(); // folder 2 is a replica of #1 but used to prevent double clicking
-        displayGlitch(); // a little 'glitch' looking drawing using lines and ellipses
-        textBroken(); // displays text
-        brokenStatic(); // drawing of broken screen lookalike 
-    }
-
+    displayStates();
 };
 
 
@@ -341,34 +300,7 @@ function draw() {
 
 //STATE CHANGES
 
-  // homepage to zaagi via double clicking folder (very proud of this)
-  function doubleClicked() {
-    if (value === 255) {
-        state = `zaagi`;
-     }
-    };
-
-
-    
-    // change state from zaagi to homepage
-    function exitWindow() {
-        if(isHovering) {
-            state = `homepage`;
-        }
-    };
-    // hovering over boolean values
-    function checkHover() {
-        let d = dist(mouseX, mouseY, box.x, box.y);
-    
-        if (d < box.sizeX / 2 && d < box.sizeY / 2) {
-            isHovering = true;
-        }
-        else {
-            isHovering = false;
-        }
-    };
-
-    // start page switching to homepage
+  // key pressed to change between each states of program except 'broken' - as it is triggered by checkLength()
     function keyPressed() {
         if (state === `title`) {
             if (keyCode === ENTER) {
