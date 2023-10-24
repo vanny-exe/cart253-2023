@@ -129,10 +129,10 @@ function draw() {
         displayManidoo()  // spirits displaying and moving inside of this state
         zaagi(); // for loop of collecting spirits
         checkLength(); // check length for # of spirits remaining - triggers text
-        displayExit(); // the 'exit' button to return to homepage 
+        exitWindow(); // the 'exit' button to return to homepage 
 
         checkHover();
-        mousePressed();
+        clickExit();
         pop();
     }
 
@@ -270,7 +270,7 @@ function draw() {
 
     
     // change state from zaagi to homepage
-    function mousePressed() {
+    function exitWindow() {
         if(isHovering) {
             state = `homepage`;
         }
