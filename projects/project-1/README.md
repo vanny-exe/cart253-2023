@@ -1,3 +1,5 @@
 # Template p5 project
+The background image (bgz) and (bg) is an image edited by me. All other images used the program are made by me. 
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+Works Cited
+O'Rear, Charles. (1996). Bliss [Photograph]. Windows XP, Sonoma Highway California. https://archive.org/details/bliss-600dpi
