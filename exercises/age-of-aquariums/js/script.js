@@ -3,7 +3,7 @@
  * vanessa racine
  * 
 
- * a mini game to catch fireflies, where both endings are okay :)
+ * a mini game to catch fireflies, where both endings are not inherently bad 
  * 
  */
 
