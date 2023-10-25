@@ -31,7 +31,7 @@ let fireflies;
 
 // TEXT
     // title state
-let titleString = `catching fireflies\n\n( click to play )`
+let titleString = `catching fireflies\n\n( press ENTER to play )`
     // ending 1 - catching all fireflies
 let ending1String = `the net is so bright\nyou'll never be afraid of the dark again.`
     // ending 2 - not catching all the fireflies
