@@ -3,7 +3,7 @@
  * vanessa racine
  * 
 
- * a mini game to catch fireflies, where both endings are not inherently bad 
+ * a mini game to catch fireflies, where both endings are not inherently bad :)
  * 
  */
 
@@ -14,7 +14,7 @@ let school = [];
 let schoolSize = 10;
 
 // countdown timer for 'game'
-let timer = 10
+let timer = 10;
 
 // USER 
 let user = {
