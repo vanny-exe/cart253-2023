@@ -62,11 +62,5 @@ this.alive = true;
         pop();
         }
 
-    mousePressed() {
-        let d = dist(this.x, this.y, mouseX, mouseY);
-        if (d < this.size/2 + this.petalThickness) {
-            this.stemLength = this.stemLength + 5;
-            this.y = this.y - 5;
-        }
-    }
+
 }
