@@ -2,9 +2,8 @@
  * juggle garden exercise
  * vanessa racine
  * 
- * to add: mouse as watering can (use dist to help flowers grow)
  * new class and objects: bugs that decrease the flowers
- * two endings: max out growth of 5 flowers (stop decrease/increase when growth = maxgrowth) OR lose 3 flowers 
+ * two endings: timer and lose 5 flowers 
  */
 
 "use strict";
