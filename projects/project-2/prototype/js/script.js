@@ -4,6 +4,14 @@
  * 
  * a drawing simulator in which the user co creates with machine. 
  * caus() is being used in 104
+ * to figure out:
+ * bringing cursor to the front of the program so that drawing is not hidden behind manidoo
+ * 
+ * to add: 
+ * zaagiidiwin()
+ * zaagi()
+ * idi()
+ * win()
  */
 
 "use strict";
