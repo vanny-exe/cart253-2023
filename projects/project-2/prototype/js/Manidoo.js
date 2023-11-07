@@ -4,12 +4,13 @@ class Manidoo {
       this.x = x;
       this.y = y;
       this.size = size;
-      this.maxSize = 200; // To limit growth
       this.ManidooColor = { // Color information
         r: 0,
         g: 0,
-        b: 0
+        b: 0,
+        a: 0
       };
+      
       this.alive = true;
         }
 
@@ -26,8 +27,9 @@ class Manidoo {
 // DISPLAY
     display() {
         push();
-        noStroke();
-        fill(this.ManidooColor.r, this.ManidooColor.g, this.ManidooColor.b);
+        //noStroke();
+        fill(this.ManidooColor.r, this.ManidooColor.g, this.ManidooColor.b, this.ManidooColor.a
+            );
         ellipse(this.x, this.y, this.size);
         pop();
         }

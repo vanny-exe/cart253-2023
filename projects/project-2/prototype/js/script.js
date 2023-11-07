@@ -5,8 +5,9 @@
  * a drawing simulator in which the user co creates with machine. 
  * caus() is being used in 104
  * to figure out:
- * bringing cursor to the front of the program so that drawing is not hidden behind manidoo
- * 
+ *      transform Zaagi into a object oriented
+ *      create different zaagi inputs
+ *      
  * to add: 
  * zaagiidiwin()
  * zaagi()
@@ -15,18 +16,12 @@
  */
 
 "use strict";
-// USER
-    let user = {
-        x: 100,
-        y: 100,
-        size: 30,
-        vx: 0,
-        vy: 0,
-    }
+// ZAAGI
+    let size = 30;
 
 // SIMULATION 
     let universe = {
-
+  
     manidoog: [],  // array to store individual manidoo
     numManidoog: 7, // How many manidoog in the universe - seven for the seven teachings?
 
@@ -44,16 +39,20 @@
 /**
 * Description of preload
 */
-function preload() {
-}
+    function preload() {
+    
+    }
 
 
 /**
 * Description of setup
 */
-function setup() {
-createCanvas(600, 600);
-createManidoog(); // Create our manidoog by counting up to the number of manidoog
+    function setup() {
+        createCanvas(600, 600);
+        background(255,255,255);
+        createManidoog(); // Create our manidoog by counting up to the number of manidoog
+
+
 
 }
 
@@ -61,11 +60,10 @@ createManidoog(); // Create our manidoog by counting up to the number of manidoo
 /**
 * Description of draw()
 */
-function draw() {
-background(255,255,255);
-displayStates();
+    function draw() {
+        displayStates();
 
-}
+    }
 
 
 
@@ -99,36 +97,52 @@ displayStates();
     return manidoo1.y - manidoo2.y;
     }
 
-// USER
+// ZAAGI
     // display user 
-        function showUser() {
-        fill(255,0,0);
-        ellipse(user.x, user.y, user.size);
-        user.x = mouseX;
-        user.y = mouseY;
+        function zaagi() { // red
+        push();
+        noFill();
+        stroke(255,0,0);
+        strokeWeight(2);
+        ellipse(mouseX, mouseY, size);
         noCursor();
+        pop();
         }
     // user action caus() - growth triggered inside of loopManidoo()
         function caus(manidoo) {
-        let d = dist(manidoo.x, manidoo.y, user.x, user.y);
-            if (d < manidoo.size / 2 + user.size / 2) {
+                    idi(manidoo);
+        }
+
+
+        function idi(manidoo) {
+            let d = dist(manidoo.x, manidoo.y, mouseX, mouseY); // growth
+            if (d < manidoo.size / 2 + size / 2) {
                 let growth = 0.3;
                 manidoo.size = manidoo.size + growth; 
             }
+            if (d < manidoo.size / 2 + size / 2) { // green 
+                push();
+                noFill();
+                stroke(0,255,0);
+                strokeWeight(2);
+                ellipse(mouseX, mouseY, size);
+                noCursor();
+                pop(); 
+            }
         }
-
 // STATES
     // display states
     function displayStates() {
         if (state === `title`) {
             push();
+            background(255);
             textTitle(); // displays title text
             keyPressed(); // press enter to go to game state
             pop();
         }
         else if (state === `game`) {
             push();
-            showUser(); // display cursor as a watering can 
+            zaagi(); // display cursor 
             loopManidoo(); // loop through all the manidoog in the array and display them
             pop();
         }
@@ -137,22 +151,27 @@ displayStates();
 // CHANGE STATES
     // title to game
     function keyPressed() {
-    if (state === `title`) {
-    if(keyCode === ENTER) {
-        state = `game`;
-    }
-    }
+        if (state === `title`) {
+            if(keyCode === ENTER) {
+                background(255);
+                state = `game`;
+            }
+        }
     }
 
 
 // TEXT
     // title page 
     function textTitle() {
-    push();
-    fill(227, 227, 227);
-    textSize(20);
-    textAlign(CENTER, CENTER);
-    textFont('Space Grotesk')
-    text(titleString, width/2,height/2);
-    pop();
+        push();
+        fill(0,0,0);
+        textSize(20);
+        noStroke();
+        textAlign(CENTER, CENTER);
+        textFont('Space Grotesk')
+        text(titleString, width/2,height/2);
+        pop();
     }
+
+
+    
