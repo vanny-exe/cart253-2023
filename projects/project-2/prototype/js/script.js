@@ -9,6 +9,7 @@
  *      create different zaagi inputs
  *      
  * to add: 
+ * COMMENTS oof
  * zaagiidiwin()
  * zaagi()
  * idi()
