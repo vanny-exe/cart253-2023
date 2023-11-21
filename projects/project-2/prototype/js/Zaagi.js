@@ -11,5 +11,13 @@ class Zaagi {
         };
     }
 
+// DISPLAY
+    display() {
+      noFill();
+      stroke(this.color.r, this.color.g, this.color.b);
+      strokeWeight(2);
+      ellipse(mouseX, mouseY, size);
+      noCursor();
+    }
 
 }

@@ -1,4 +1,5 @@
 class Manidoo {
+
     constructor(x, y, size) {
       // Position and size information
       this.x = x;
@@ -28,8 +29,7 @@ class Manidoo {
     display() {
         push();
         //noStroke();
-        fill(this.ManidooColor.r, this.ManidooColor.g, this.ManidooColor.b, this.ManidooColor.a
-            );
+        fill(this.ManidooColor.r, this.ManidooColor.g, this.ManidooColor.b, this.ManidooColor.a);
         ellipse(this.x, this.y, this.size);
         pop();
         }
