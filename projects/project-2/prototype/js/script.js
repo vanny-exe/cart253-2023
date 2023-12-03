@@ -51,7 +51,7 @@
     function setup() {
         createCanvas(600, 600);
         background(255,255,255);
-        createManidoog(); // Create our manidoog by counting up to the number of manidoog
+        createManidoog(); // Create manidoog ('invisible' elements changing upon user interactions) by counting up to the number of manidoog
 
 
 
@@ -62,7 +62,7 @@
 * Description of draw()
 */
     function draw() {
-        displayStates();
+        zaagiidiwin(); // displays states (title screen and simulator, titled zaagi())
 
     }
 
@@ -75,7 +75,7 @@
             let x = random(0, width);
             let y = random(0, height);
             let size = random(100, 200);
-            let manidoo = new Manidoo(x, y, size);
+            let manidoo = new Manidoo(x, y, size, i);
             universe.manidoog.push(manidoo);
             universe.manidoog.sort(sortByY);
         }
@@ -93,20 +93,16 @@
         }   
     }
 
-// CONSTRAIN 
+// CONSTRAIN - so they don't lay overtop each other in a terrible way
     function sortByY(manidoo1, manidoo2) {
     return manidoo1.y - manidoo2.y;
     }
 
 // ZAAGI
-    // display user 
+    // display user
         function zaagi() { // red
         push();
-        noFill();
-        stroke(255,0,0);
-        strokeWeight(2);
-        ellipse(mouseX, mouseY, size);
-        noCursor();
+        let zaagi = new Zaagi(mouseX, mouseY, size);
         pop();
         }
     // user action caus() - growth triggered inside of loopManidoo()
@@ -133,7 +129,7 @@
         }
 // STATES
     // display states
-    function displayStates() {
+    function zaagiidiwin() {
         if (state === `title`) {
             push();
             background(255);
@@ -143,7 +139,8 @@
         }
         else if (state === `game`) {
             push();
-            zaagi(); // display cursor 
+            //
+            zaagi(); // display cursor - i have to change to an object  
             loopManidoo(); // loop through all the manidoog in the array and display them
             pop();
         }
