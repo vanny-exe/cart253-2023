@@ -1,6 +1,7 @@
 class Manidoo {
     // default settings of manidoo - position, size and color information
     constructor(x, y, size, i) {
+      this.manidoo = i;
       this.x = x;
       this.y = y;
       this.size = size;
@@ -12,31 +13,13 @@ class Manidoo {
       };
     // set alive as true for shrink() to work
       this.alive = true;
-
-    // creating variables in each element of the array, for a total of 7
-     switch(i){     
-         case "0":
-             this.changetoGreen();
-         break;
-         case "1":
-             this.changetoGreen();
-         break;
-     default:
-         console.log("this is not a registered manidoo")
-       }
-
-
-
+      console.log(this.manidoo);
+ 
     }
 
 
-// VARIABLE FUNCTIONS
-    // case 1: change color to green
-changetoGreen() {
 
-}
-    // case 2: 
-// SHRINK
+// SHRINK - shrinking manidoog when they are not interacted with 
     shrink() {
         let shrinkage = random(0, 0.1);
         this.size = this.size - shrinkage;
@@ -46,7 +29,7 @@ changetoGreen() {
         }
     };
 
-// DISPLAY
+// DISPLAY - displays the manidoog (not visible in output)
     display() {
         push();
         //noStroke();

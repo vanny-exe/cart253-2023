@@ -3,21 +3,11 @@
  * vanessa racine
  * 
  * a drawing simulator in which the user co creates with machine. 
- * caus() is being used in 104
- * to figure out:
- *      transform Zaagi into a object oriented
- *      create different zaagi inputs
- *      
- * to add: 
- * COMMENTS oof
- * zaagiidiwin()
- * zaagi()
- * idi()
- * win()
  */
 
 "use strict";
 // ZAAGI
+    let zaagi;
     let size = 30;
 
 // SIMULATION 
@@ -25,7 +15,6 @@
   
     manidoog: [],  // array to store individual manidoo
     numManidoog: 7, // How many manidoog in the universe - seven for the seven teachings?
-
     };
 
 
@@ -78,17 +67,40 @@
             let manidoo = new Manidoo(x, y, size, i);
             universe.manidoog.push(manidoo);
             universe.manidoog.sort(sortByY);
+
+        console.log(universe.manidoog)
+        }
+
+        for (let i = 0; i<universe.manidoog.length ; i++){
+        
+            console.log(universe.manidoog[i])
+    
         }
     }
 
-    // loop - found in draw -- includes state change
+    // loop - found in draw -- changes in array 
     function loopManidoo() {
         for (let i = 0; i < universe.manidoog.length; i++) {
-            let manidoo = universe.manidoog[i];
-            if (manidoo.alive) {
-            manidoo.shrink();
-            manidoo.display();
-            caus(manidoo);
+            if (universe.manidoog[i].alive) {
+                universe.manidoog[i].shrink();
+                universe.manidoog[i].display();
+                caus(universe.manidoog[i]);
+
+                let d = dist(universe.manidoog[i].x, universe.manidoog[i].y, zaagi.x, zaagi.y);
+                if (d < universe.manidoog[i].size / 2 + universe.manidoog[i].size / 2) {
+                    switch(i){     
+                        case 0:
+                            zaagi.changetoRed();
+                        break;
+
+                        case 1:
+                            zaagi.addSquare(); // the display() is still visible - replace not add? if not, woohoo then there are two shapes instead
+                        break;
+
+                        default:
+                            console.log("this is not a registered manidoo")
+                    }
+                }
             }
         }   
     }
@@ -98,13 +110,7 @@
     return manidoo1.y - manidoo2.y;
     }
 
-// ZAAGI
-    // display user
-        function zaagi() { // red
-        push();
-        let zaagi = new Zaagi(mouseX, mouseY, size);
-        pop();
-        }
+
     // user action caus() - growth triggered inside of loopManidoo()
         function caus(manidoo) {
                     idi(manidoo);
@@ -117,19 +123,10 @@
                 let growth = 0.3;
                 manidoo.size = manidoo.size + growth; 
             }
-            if (d < manidoo.size / 2 + size / 2) { // green 
-                push();
-                noFill();
-                stroke(0,255,0);
-                strokeWeight(2);
-                ellipse(mouseX, mouseY, size);
-                noCursor();
-                pop(); 
-            }
         }
 // STATES
     // display states
-    function zaagiidiwin() {
+    function zaagiidiwin() { // draw 
         if (state === `title`) {
             push();
             background(255);
@@ -139,8 +136,7 @@
         }
         else if (state === `game`) {
             push();
-            //
-            zaagi(); // display cursor - i have to change to an object  
+            zaagi = new Zaagi(mouseX, mouseY, size); // display cursor - i have to change to an object  
             loopManidoo(); // loop through all the manidoog in the array and display them
             pop();
         }
