@@ -32,7 +32,7 @@ class Manidoo {
 // DISPLAY - displays the manidoog (not visible in output)
     display() {
         push();
-        //noStroke();
+        noStroke();
         fill(this.ManidooColor.r, this.ManidooColor.g, this.ManidooColor.b, this.ManidooColor.a);
         ellipse(this.x, this.y, this.size);
         pop();

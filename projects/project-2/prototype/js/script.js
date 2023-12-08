@@ -76,56 +76,10 @@
             console.log(universe.manidoog[i])
     
         }
-    }
+    };
 
-    // loop - found in draw -- changes in array 
-    function loopManidoo() {
-        for (let i = 0; i < universe.manidoog.length; i++) {
-            if (universe.manidoog[i].alive) {
-                universe.manidoog[i].shrink();
-                universe.manidoog[i].display();
-                caus(universe.manidoog[i]);
-
-                let d = dist(universe.manidoog[i].x, universe.manidoog[i].y, zaagi.x, zaagi.y);
-                if (d < universe.manidoog[i].size / 2 + universe.manidoog[i].size / 2) {
-                    switch(i){     
-                        case 0:
-                            zaagi.changetoRed();
-                        break;
-
-                        case 1:
-                            zaagi.addSquare(); // the display() is still visible - replace not add? if not, woohoo then there are two shapes instead
-                        break;
-
-                        default:
-                            console.log("this is not a registered manidoo")
-                    }
-                }
-            }
-        }   
-    }
-
-// CONSTRAIN - so they don't lay overtop each other in a terrible way
-    function sortByY(manidoo1, manidoo2) {
-    return manidoo1.y - manidoo2.y;
-    }
-
-
-    // user action caus() - growth triggered inside of loopManidoo()
-        function caus(manidoo) {
-                    idi(manidoo);
-        }
-
-
-        function idi(manidoo) {
-            let d = dist(manidoo.x, manidoo.y, mouseX, mouseY); // growth
-            if (d < manidoo.size / 2 + size / 2) {
-                let growth = 0.3;
-                manidoo.size = manidoo.size + growth; 
-            }
-        }
-// STATES
-    // display states
+    // ZAAGIDIWIN BREAKDOWN
+    // display states - the title screen and the simulation itself
     function zaagiidiwin() { // draw 
         if (state === `title`) {
             push();
@@ -136,11 +90,75 @@
         }
         else if (state === `game`) {
             push();
-            zaagi = new Zaagi(mouseX, mouseY, size); // display cursor - i have to change to an object  
-            loopManidoo(); // loop through all the manidoog in the array and display them
+             // display zaagi object 
+            win(); // loop through all the manidoog in the array and display them - contains caus() and idi()
             pop();
         }
     };
+
+    // loop - found in draw -- changes in array 
+    function win() {
+        zaagi = new Zaagi(mouseX, mouseY, size);
+        for (let i = 0; i < universe.manidoog.length; i++) {
+            if (universe.manidoog[i].alive) {
+                universe.manidoog[i].shrink();  // shrinks the circles over time
+                universe.manidoog[i].display(); // displays the manidoog array
+                caus(universe.manidoog[i]); // circles grow when mouse is hovering over 
+                idi(i); //
+
+            }
+        }   
+    }
+
+    // user action caus() - growth triggered inside of loopManidoo()
+        function caus(manidoo) {
+            let d = dist(manidoo.x, manidoo.y, mouseX, mouseY); // growth
+            if (d < manidoo.size / 2 + size / 2) {
+                let growth = 0.5;
+                manidoo.size = manidoo.size + growth; 
+            }
+        }
+    // idi - by hovering, the program gives a different output for each circle in the array 
+        function idi(i) {
+            let d = dist(universe.manidoog[i].x, universe.manidoog[i].y, zaagi.x, zaagi.y);
+            console.log(d)
+            if (d < universe.manidoog[i].size / 2 + zaagi.size / 2) {
+                switch(i){     
+                    case 0:
+                        zaagi.changetoRed();
+                    break;
+
+                    case 1:
+                        zaagi.addSquare(); // the display() is still visible - replace not add? if not, woohoo then there are two shapes instead
+                    break;
+
+                    case 2:
+                        zaagi.changetoInvisible(); 
+                    break;
+
+                    case 3:
+                        zaagi.changetoEllipse(); 
+                    break;
+
+                    case 4:
+                        zaagi.bigCircles(); 
+                    break;
+
+                    case 5:
+                        zaagi.enlargeCircle(); 
+                    break;
+
+                    case 6:
+                        zaagi.tinyOvals(); 
+                    break;
+
+                    default:
+                       
+                        console.log("this is not a registered manidoo");
+                }
+            
+            }
+        };
 
 // CHANGE STATES
     // title to game
@@ -151,7 +169,12 @@
                 state = `game`;
             }
         }
-    }
+    };
+
+// CONSTRAIN - so they don't lay overtop each other in a terrible way
+function sortByY(manidoo1, manidoo2) {
+    return manidoo1.y - manidoo2.y;
+    };
 
 
 // TEXT
@@ -165,7 +188,7 @@
         textFont('Space Grotesk')
         text(titleString, width/2,height/2);
         pop();
-    }
+    };
 
 
   
